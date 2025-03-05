@@ -1,4 +1,4 @@
-# This is a workflow to pull forgejo images and push it to dockerhub
+# This is a workflow to pull forgejo images and push them to dockerhub
 
 name: Publish
 
