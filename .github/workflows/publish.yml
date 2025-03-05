@@ -1,0 +1,38 @@
+# This is a workflow to pull forgejo images and push it to dockerhub
+
+name: Publish
+
+# Controls when the workflow will run
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+
+      - name: Pull
+        run: docker pull --platform linux/amd64 codeberg.org/forgejo/forgejo:10 
+
+      - name: Inspect
+        run: docker image inspect codeberg.org/forgejo/forgejo:10
+
+      - name: Tag
+        run: docker tag codeberg.org/forgejo/forgejo:10 mupofps/forgejo:10
+
+      - name: Login
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          
+      - name: Push
+        run: docker push mupofps/forgejo:10 
