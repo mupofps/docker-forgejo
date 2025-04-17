@@ -4,7 +4,7 @@ name: Publish
 
 # Set custom environment variables
 env:
-  FORGEJO_PULL_TAG: 10
+  FORGEJO_PULL_TAG: 11
   FORGEJO_CUSTOM_TAG: latest
 
 # Controls when the workflow will run
